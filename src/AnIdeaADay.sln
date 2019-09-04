@@ -3,15 +3,15 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29009.5
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AIAD.Library.Models", "src\AIAD.Library.Models\AIAD.Library.Models.csproj", "{A5FACD06-0FAD-425E-A7F2-DFDED1B6C355}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AIAD.Library.Models", "AIAD.Library.Models\AIAD.Library.Models.csproj", "{A5FACD06-0FAD-425E-A7F2-DFDED1B6C355}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AIAD.Library.Data", "src\AIAD.Library.Data\AIAD.Library.Data.csproj", "{05C956B9-CEB4-450A-A717-72A5CEE2063C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AIAD.Library.Data", "AIAD.Library.Data\AIAD.Library.Data.csproj", "{05C956B9-CEB4-450A-A717-72A5CEE2063C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AIAD.Api", "src\AIAD.Api\AIAD.Api.csproj", "{B5162ECF-6612-40D7-8058-DE2C4F0873D3}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AIAD.Api", "AIAD.Api\AIAD.Api.csproj", "{B5162ECF-6612-40D7-8058-DE2C4F0873D3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AIAD.Library.Global", "src\AIAD.Library.Global\AIAD.Library.Global.csproj", "{B7156943-2D01-42F9-86F9-C696DC4039D9}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AIAD.Library.Global", "AIAD.Library.Global\AIAD.Library.Global.csproj", "{B7156943-2D01-42F9-86F9-C696DC4039D9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AIAD.Library.Services", "src\AIAD.Library.Services\AIAD.Library.Services.csproj", "{99BDFC68-0619-4D78-A738-F2458E5F70C2}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AIAD.Library.Services", "AIAD.Library.Services\AIAD.Library.Services.csproj", "{99BDFC68-0619-4D78-A738-F2458E5F70C2}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
