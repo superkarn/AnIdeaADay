@@ -15,6 +15,7 @@
     <ProjectReference Include="..\AIAD.Library.Data\AIAD.Library.Data.csproj" />
     <ProjectReference Include="..\AIAD.Library.Global\AIAD.Library.Global.csproj" />
     <ProjectReference Include="..\AIAD.Library.Models\AIAD.Library.Models.csproj" />
+    <ProjectReference Include="..\AIAD.Library.Services\AIAD.Library.Services.csproj" />
   </ItemGroup>
 
 </Project>

@@ -1,9 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 using AIAD.Library.Data.Data;
 using AIAD.Library.Global;
+using AIAD.Library.Services;
+using AIAD.Library.Services.Interfaces;
+using AIAD.Library.Services.LookUp;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -14,6 +19,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using Microsoft.IdentityModel.Tokens;
 using Swashbuckle.AspNetCore.Swagger;
 
 namespace AIAD.Api
@@ -43,25 +49,25 @@ namespace AIAD.Api
             });
 
             #region JWT
-            //var jwtAppSettings = this.Configuration.GetSection("Jwt").Get<JwtAppSettings>();
-            //services.AddSingleton<JwtAppSettings>(jwtAppSettings);
-            //services.AddScoped<IJwtService, JwtService>();
-            //
-            //services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-            //    .AddJwtBearer(options =>
-            //    {
-            //        options.TokenValidationParameters = new TokenValidationParameters
-            //        {
-            //            ValidateIssuer = true,
-            //            ValidateAudience = true,
-            //            ValidateLifetime = true,
-            //            ValidateIssuerSigningKey = true,
-            //            ValidIssuer = jwtAppSettings.Issuer,
-            //            ValidAudience = jwtAppSettings.Audience,
-            //            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtAppSettings.Key)),
-            //            ClockSkew = TimeSpan.Zero
-            //        };
-            //    });
+            var jwtAppSettings = this.Configuration.GetSection("Jwt").Get<JwtAppSettings>();
+            services.AddSingleton<JwtAppSettings>(jwtAppSettings);
+            services.AddScoped<IJwtService, JwtService>();
+
+            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+                .AddJwtBearer(options =>
+                {
+                    options.TokenValidationParameters = new TokenValidationParameters
+                    {
+                        ValidateIssuer = true,
+                        ValidateAudience = true,
+                        ValidateLifetime = true,
+                        ValidateIssuerSigningKey = true,
+                        ValidIssuer = jwtAppSettings.Issuer,
+                        ValidAudience = jwtAppSettings.Audience,
+                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtAppSettings.Key)),
+                        ClockSkew = TimeSpan.Zero
+                    };
+                });
 
             // Needed so JWT can work
             services.AddCors(options =>
@@ -82,10 +88,10 @@ namespace AIAD.Api
             #endregion
 
             #region Dependency Injection
-            //services.AddScoped<IIdeaService, IdeaService>();
-            //services.AddScoped<ICommentService, CommentService>();
-            //services.AddScoped<ILookUpService, LookUpService>();
-            //
+            services.AddScoped<IIdeaService, IdeaService>();
+            services.AddScoped<ICommentService, CommentService>();
+            services.AddScoped<ILookUpService, LookUpService>();
+
             //services.AddScoped<IIdeaRepository, IdeaRepository>();
             //services.AddScoped<ICommentRepository, CommentRepository>();
             #endregion
