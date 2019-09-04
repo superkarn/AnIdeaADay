@@ -1,0 +1,18 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.IdentityModel.Tokens" Version="5.5.0" />
+    <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="5.5.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\AIAD.Library.Data\AIAD.Library.Data.csproj" />
+    <ProjectReference Include="..\AIAD.Library.Global\AIAD.Library.Global.csproj" />
+    <ProjectReference Include="..\AIAD.Library.Models\AIAD.Library.Models.csproj" />
+  </ItemGroup>
+
+</Project>
