@@ -9,6 +9,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AIAD.Library.Data", "src\AI
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AIAD.Api", "src\AIAD.Api\AIAD.Api.csproj", "{B5162ECF-6612-40D7-8058-DE2C4F0873D3}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AIAD.Library.Global", "src\AIAD.Library.Global\AIAD.Library.Global.csproj", "{B7156943-2D01-42F9-86F9-C696DC4039D9}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{B5162ECF-6612-40D7-8058-DE2C4F0873D3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B5162ECF-6612-40D7-8058-DE2C4F0873D3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B5162ECF-6612-40D7-8058-DE2C4F0873D3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B7156943-2D01-42F9-86F9-C696DC4039D9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B7156943-2D01-42F9-86F9-C696DC4039D9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B7156943-2D01-42F9-86F9-C696DC4039D9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B7156943-2D01-42F9-86F9-C696DC4039D9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
