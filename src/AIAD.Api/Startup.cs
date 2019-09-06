@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using AIAD.Library.Data.Data;
+using AIAD.Library.Data.Repositories.EntityFramework;
+using AIAD.Library.Data.Repositories.Interfaces;
 using AIAD.Library.Global;
 using AIAD.Library.Services;
 using AIAD.Library.Services.Interfaces;
@@ -92,8 +94,8 @@ namespace AIAD.Api
             services.AddScoped<ICommentService, CommentService>();
             services.AddScoped<ILookUpService, LookUpService>();
 
-            //services.AddScoped<IIdeaRepository, IdeaRepository>();
-            //services.AddScoped<ICommentRepository, CommentRepository>();
+            services.AddScoped<IIdeaRepository, IdeaRepository>();
+            services.AddScoped<ICommentRepository, CommentRepository>();
             #endregion
         }
 
