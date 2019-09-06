@@ -6,8 +6,7 @@
 
   <ItemGroup>
     <Folder Include="Data\" />
-    <Folder Include="Repositories\Interfaces\" />
-    <Folder Include="Repositories\EntityFramework\" />
+    <Folder Include="Repositories\EntityFramework\LookUp\" />
   </ItemGroup>
 
   <ItemGroup>
