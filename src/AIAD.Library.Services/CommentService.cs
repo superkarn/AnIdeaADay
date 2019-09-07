@@ -1,24 +1,16 @@
 ﻿using AIAD.Library.Models;
-//using AIAD.Library.Data.Repositories.Interfaces;
+using AIAD.Library.Data.Repositories.Interfaces;
 using AIAD.Library.Services.Interfaces;
-using Microsoft.EntityFrameworkCore;
-using System.Collections.Generic;
 using System;
-using System.Linq;
-using System.Security;
-using AIAD.Library.Models.LookUp;
+using System.Collections.Generic;
 
 namespace AIAD.Library.Services
 {
     public class CommentService : ICommentService
     {
-        // TODO replace this
-        //private readonly IIdeaRepository commentRepository;
-        private readonly dynamic commentRepository;
+        private readonly IIdeaRepository commentRepository;
 
-        // TODO replace this
-        //public CommentService(IIdeaRepository commentRepository)
-        public CommentService(dynamic commentRepository)
+        public CommentService(IIdeaRepository commentRepository)
         {
             this.commentRepository = commentRepository;
         }

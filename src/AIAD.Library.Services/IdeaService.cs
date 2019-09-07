@@ -7,20 +7,16 @@ using System;
 using System.Linq;
 using System.Security;
 using AIAD.Library.Models.LookUp;
+using AIAD.Library.Data.Repositories.Interfaces;
 
 namespace AIAD.Library.Services
 {
     public class IdeaService : IIdeaService
     {
-        // TODO replace this
-        //private readonly IIdeaRepository ideaRepository;
-        //private readonly IApplicationUserRepository identityUserRepository;
-        private readonly dynamic ideaRepository;
-        private readonly dynamic identityUserRepository;
+        private readonly IIdeaRepository ideaRepository;
+        private readonly IApplicationUserRepository identityUserRepository;
 
-        // TODO replace this
-        //public IdeaService(IIdeaRepository ideaRepository, IApplicationUserRepository identityUserRepository)
-        public IdeaService(dynamic ideaRepository, dynamic identityUserRepository)
+        public IdeaService(IIdeaRepository ideaRepository, IApplicationUserRepository identityUserRepository)
         {
             this.ideaRepository = ideaRepository;
             this.identityUserRepository = identityUserRepository;
