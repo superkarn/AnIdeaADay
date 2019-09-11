@@ -142,7 +142,7 @@ namespace AIAD.Library.Services
             existingItem.Description = item.Description;
             existingItem.LastModifiedDate = DateTime.UtcNow;
 
-            this.ideaRepository.Update(item);
+            this.ideaRepository.Update(existingItem);
         }
     }
 }
