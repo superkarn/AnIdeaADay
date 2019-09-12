@@ -61,7 +61,7 @@ namespace AIAD.Library.Services
             
             try
             {
-                this.ideaRepository.DeleteById(id);
+                this.ideaRepository.Delete(item);
             }
             catch (DbUpdateConcurrencyException ex)
             {

@@ -18,11 +18,15 @@ namespace AIAD.Library.Data.Repositories.EntityFramework
             return item.Id;
         }
 
+        public virtual void Delete(TEntity item)
+        {
+            this.Context.Remove(item);
+            this.Context.SaveChanges();
+        }
+
         public virtual void DeleteById(int id)
         {
-            TEntity item = new TEntity() { Id = id };
-            this.Context.Attach(item as TEntity);
-            this.Context.Remove(item as TEntity);
+            this.Context.Remove(new TEntity() { Id = id });
             this.Context.SaveChanges();
         }
 

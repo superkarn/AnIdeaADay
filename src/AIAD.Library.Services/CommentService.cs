@@ -30,7 +30,7 @@ namespace AIAD.Library.Services
             // If there's no current user, don't allow
             if (context.CurrentUser == null)
             {
-                throw new SecurityException($"User NULL is unauthorized to delete Idea id {id}");
+                throw new SecurityException($"User NULL is unauthorized to delete Comment id {id}");
             }
 
             var item = this.commentRepository.GetById(id);
@@ -45,12 +45,12 @@ namespace AIAD.Library.Services
             // If the current user is not the item creator, don't allow
             if (item.CreatorId != context.CurrentUser.Id)
             {
-                throw new SecurityException($"User {context.CurrentUser.Id} is unauthorized to delete Idea id {id}");
+                throw new SecurityException($"User {context.CurrentUser.Id} is unauthorized to delete Comment id {id}");
             }
 
             try
             {
-                this.commentRepository.DeleteById(id);
+                this.commentRepository.Delete(item);
             }
             catch (DbUpdateConcurrencyException ex)
             {
