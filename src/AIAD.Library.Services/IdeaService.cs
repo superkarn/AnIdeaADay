@@ -1,25 +1,25 @@
-﻿using AIAD.Library.Models;
-//using AIAD.Library.Data.Repositories.Interfaces;
+﻿using AIAD.Library.Data.Repositories.Interfaces;
+using AIAD.Library.Models;
+using AIAD.Library.Models.LookUp;
 using AIAD.Library.Services.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System;
 using System.Linq;
 using System.Security;
-using AIAD.Library.Models.LookUp;
-using AIAD.Library.Data.Repositories.Interfaces;
+using System.Data.SqlClient;
 
 namespace AIAD.Library.Services
 {
     public class IdeaService : IIdeaService
     {
         private readonly IIdeaRepository ideaRepository;
-        private readonly IApplicationUserRepository identityUserRepository;
+        private readonly IApplicationUserRepository applicationUserRepository;
 
         public IdeaService(IIdeaRepository ideaRepository, IApplicationUserRepository identityUserRepository)
         {
             this.ideaRepository = ideaRepository;
-            this.identityUserRepository = identityUserRepository;
+            this.applicationUserRepository = identityUserRepository;
         }
 
         public int Create(ApplicationContext context, Idea item)
@@ -108,7 +108,7 @@ namespace AIAD.Library.Services
 
         public IEnumerable<Idea> GetByCreatorUsername(ApplicationContext context, string username)
         {
-            var user = this.identityUserRepository.GetByUsername(username).FirstOrDefault();
+            var user = this.applicationUserRepository.GetByUsername(username).FirstOrDefault();
 
             return this.ideaRepository.GetByCreatorId(user.Id);
         }
@@ -142,7 +142,22 @@ namespace AIAD.Library.Services
             existingItem.Description = item.Description;
             existingItem.LastModifiedDate = DateTime.UtcNow;
 
-            this.ideaRepository.Update(existingItem);
+            try
+            {
+                this.ideaRepository.Update(existingItem);
+            }
+            catch (Exception ex)
+            {
+                if (ex.InnerException != null)
+                {
+                    if (ex.InnerException is SqlException && ex.InnerException.Message.Contains("IX_Ideas_CreatorId_Name"))
+                    {
+                        throw new ArgumentException("Name already exists for this account.  Please choose another one.");
+                    }
+                }
+
+                throw ex;
+            }
         }
     }
 }
