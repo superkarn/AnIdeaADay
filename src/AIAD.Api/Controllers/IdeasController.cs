@@ -10,7 +10,6 @@ using Microsoft.AspNetCore.Mvc;
 namespace AIAD.Api.Controllers
 {
     [Authorize]
-    [Route("api/users/{username}/ideas")]
     [ApiController]
     public class IdeasController : BaseController
     {
@@ -21,8 +20,8 @@ namespace AIAD.Api.Controllers
             this.ideaService = ideaService;
         }
 
-        // GET api/users/{username}/ideas
         [HttpGet]
+        [Route("api/users/{username}/ideas")]
         public ActionResult<IEnumerable<Idea>> Get(string username)
         {
             this.Context = this.CreateApplicationContext((ClaimsIdentity)HttpContext.User.Identity);
@@ -30,17 +29,17 @@ namespace AIAD.Api.Controllers
             return this.ideaService.GetByCreatorUsername(this.Context, username).ToList();
         }
 
-        // GET api/users/{username}/ideas/5
-        [HttpGet("{id}")]
-        public ActionResult<Idea> Get(string username, int id)
+        [HttpGet]
+        [Route("api/users/{username}/ideas/{id}")]
+        public ActionResult<Idea> GetById(string username, int id)
         {
             this.Context = this.CreateApplicationContext((ClaimsIdentity)HttpContext.User.Identity);
 
             return this.ideaService.GetById(Context, id);
         }
 
-        // POST api/users/{username}/ideas
         [HttpPost]
+        [Route("api/users/{username}/ideas")]
         public ActionResult Post(string username, [FromBody] Idea value)
         {
             this.Context = this.CreateApplicationContext((ClaimsIdentity)HttpContext.User.Identity);
@@ -58,8 +57,8 @@ namespace AIAD.Api.Controllers
             }
         }
 
-        // PUT api/users/{username}/ideas/5
-        [HttpPut("{id}")]
+        [HttpPut]
+        [Route("api/users/{username}/ideas/{id}")]
         public ActionResult Put(string username, int id, [FromBody] Idea value)
         {
             this.Context = this.CreateApplicationContext((ClaimsIdentity)HttpContext.User.Identity);
@@ -70,16 +69,21 @@ namespace AIAD.Api.Controllers
             }
             catch (Exception ex)
             {
-                // TODO convert this into user-friendly response
-                // for now, return 409 Conflict
-                return Conflict(ex);
+                if (ex.InnerException != null)
+                {
+                    return Conflict(ex.InnerException.Message);
+                }
+                else
+                {
+                    return Conflict(ex.Message);
+                }
             }
 
             return Ok();
         }
 
-        // DELETE api/users/{username}/ideas/5
-        [HttpDelete("{id}")]
+        [HttpDelete]
+        [Route("api/users/{username}/ideas/{id}")]
         public ActionResult Delete(string username, int id)
         {
             this.Context = this.CreateApplicationContext((ClaimsIdentity)HttpContext.User.Identity);
