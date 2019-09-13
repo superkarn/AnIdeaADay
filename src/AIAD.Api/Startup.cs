@@ -45,8 +45,8 @@ namespace AIAD.Api
             });
 
             #region JWT
-            var jwtAppSettings = this.Configuration.GetSection("Jwt").Get<JwtAppSettings>();
-            services.AddSingleton<JwtAppSettings>(jwtAppSettings);
+            services.Configure<JwtAppSettings>(Configuration.GetSection("Jwt"));
+            var jwtAppSettings = services.BuildServiceProvider().GetRequiredService<JwtAppSettings>();
             services.AddScoped<IJwtService, JwtService>();
 
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
@@ -78,20 +78,8 @@ namespace AIAD.Api
             });
             #endregion
 
-            #region Database connection
-            services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
-            services.AddDbContext<IdentityDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
-            #endregion
-
-            #region Dependency Injection
-            services.AddScoped<IIdeaService, IdeaService>();
-            services.AddScoped<ICommentService, CommentService>();
-            services.AddScoped<ILookUpService, LookUpService>();
-
-            services.AddScoped<IApplicationUserRepository, ApplicationUserRepository>();
-            services.AddScoped<IIdeaRepository, IdeaRepository>();
-            services.AddScoped<ICommentRepository, CommentRepository>();
-            #endregion
+            services.AddDataProject(Configuration.GetConnectionString("DefaultConnection"), Configuration.GetConnectionString("DefaultConnection"));
+            services.AddServicesProject();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
