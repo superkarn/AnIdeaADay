@@ -1,16 +1,10 @@
-﻿using AIAD.Library.Data.Data;
-using AIAD.Library.Data.Repositories.EntityFramework;
-using AIAD.Library.Data.Repositories.Interfaces;
-using AIAD.Library.Global;
+﻿using AIAD.Library.Global;
 using AIAD.Library.Services;
 using AIAD.Library.Services.Interfaces;
-using AIAD.Library.Services.LookUp;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
@@ -78,7 +72,13 @@ namespace AIAD.Api
             });
             #endregion
 
-            services.AddDataProject(Configuration.GetConnectionString("DefaultConnection"), Configuration.GetConnectionString("DefaultConnection"));
+            services.AddDataProject(
+                options =>
+                {
+                    options.ApplicationDbConnectionString = Configuration.GetConnectionString("DefaultConnection");
+                    options.IdentityDbConnectionString = Configuration.GetConnectionString("DefaultConnection");
+                });
+
             services.AddServicesProject();
         }
 
