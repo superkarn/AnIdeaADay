@@ -72,14 +72,14 @@ namespace AIAD.Api
             });
             #endregion
 
-            services.AddDataProject(
+            services.AddDataProjectDependencies(
                 options =>
                 {
                     options.ApplicationDbConnectionString = Configuration.GetConnectionString("DefaultConnection");
                     options.IdentityDbConnectionString = Configuration.GetConnectionString("DefaultConnection");
                 });
 
-            services.AddServicesProject();
+            services.AddServicesProjectDependencies();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

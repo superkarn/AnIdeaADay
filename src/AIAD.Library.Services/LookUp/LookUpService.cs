@@ -3,7 +3,7 @@ using AIAD.Library.Models.LookUp;
 using AIAD.Library.Services.Interfaces;
 using System.Collections.Generic;
 
-namespace AIAD.Library.Services
+namespace AIAD.Library.Services.LookUp
 {
     public class LookUpService : ILookUpService
     {
