@@ -1,16 +1,8 @@
-﻿using AIAD.Library.Data.Data;
-using AIAD.Library.Data.Repositories.EntityFramework;
-using AIAD.Library.Data.Repositories.Interfaces;
-using AIAD.Library.Global;
-using AIAD.Library.Services;
-using AIAD.Library.Services.Interfaces;
-using AIAD.Library.Services.LookUp;
+﻿using AIAD.Library.Global;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
@@ -45,9 +37,10 @@ namespace AIAD.Api
             });
 
             #region JWT
+            // IJwtService is injected via services.AddServicesProjectDependencies()
+
             var jwtAppSettings = this.Configuration.GetSection("Jwt").Get<JwtAppSettings>();
             services.AddSingleton<JwtAppSettings>(jwtAppSettings);
-            services.AddScoped<IJwtService, JwtService>();
 
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                 .AddJwtBearer(options =>
@@ -67,31 +60,24 @@ namespace AIAD.Api
 
             // Needed so JWT can work
             services.AddCors(options =>
-            {
-                options.AddPolicy("CorsPolicy",
-                    builder => builder
-                        .AllowAnyOrigin() // TODO replace this with WithOrigins()
-                        .AllowAnyMethod()
-                        .AllowAnyHeader()
-                        .AllowCredentials()
-                        .Build());
-            });
+                {
+                    options.AddPolicy("CorsPolicy",
+                        builder => builder
+                            .AllowAnyOrigin() // TODO replace this with WithOrigins()
+                            .AllowAnyMethod()
+                            .AllowAnyHeader()
+                            .AllowCredentials()
+                            .Build());
+                });
             #endregion
 
-            #region Database connection
-            services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
-            services.AddDbContext<IdentityDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
-            #endregion
+            services.AddDataProjectDependencies(options =>
+                {
+                    options.ApplicationDbConnectionString = Configuration.GetConnectionString("DefaultConnection");
+                    options.IdentityDbConnectionString = Configuration.GetConnectionString("DefaultConnection");
+                });
 
-            #region Dependency Injection
-            services.AddScoped<IIdeaService, IdeaService>();
-            services.AddScoped<ICommentService, CommentService>();
-            services.AddScoped<ILookUpService, LookUpService>();
-
-            services.AddScoped<IApplicationUserRepository, ApplicationUserRepository>();
-            services.AddScoped<IIdeaRepository, IdeaRepository>();
-            services.AddScoped<ICommentRepository, CommentRepository>();
-            #endregion
+            services.AddServicesProjectDependencies();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
