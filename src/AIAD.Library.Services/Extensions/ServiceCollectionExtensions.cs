@@ -11,6 +11,7 @@ namespace Microsoft.Extensions.DependencyInjection
             services.AddScoped<IIdeaService, IdeaService>();
             services.AddScoped<ICommentService, CommentService>();
             services.AddScoped<ILookUpService, LookUpService>();
+            services.AddScoped<IJwtService, JwtService>();
         }
     }
 }
