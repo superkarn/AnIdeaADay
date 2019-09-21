@@ -37,8 +37,8 @@ namespace AIAD.Api
             });
 
             #region JWT
-            JwtAppSettings jwtAppSettings = new JwtAppSettings();
-            var jwtAppSettingsSection = Configuration.GetSection("Jwt");
+            var jwtAppSettings = new JwtAppSettings();
+            var jwtAppSettingsSection = this.Configuration.GetSection("Jwt");
             jwtAppSettingsSection.Bind(jwtAppSettings);
 
             services.Configure<JwtAppSettings>(jwtAppSettingsSection);
@@ -75,8 +75,8 @@ namespace AIAD.Api
             services.AddDataProjectDependencies(
                 options =>
                 {
-                    options.ApplicationDbConnectionString = Configuration.GetConnectionString("DefaultConnection");
-                    options.IdentityDbConnectionString = Configuration.GetConnectionString("DefaultConnection");
+                    options.ApplicationDbConnectionString = this.Configuration.GetConnectionString("DefaultConnection");
+                    options.IdentityDbConnectionString = this.Configuration.GetConnectionString("DefaultConnection");
                 });
 
             services.AddServicesProjectDependencies();
