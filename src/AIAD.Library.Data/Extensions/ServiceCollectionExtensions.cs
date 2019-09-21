@@ -16,7 +16,6 @@ namespace Microsoft.Extensions.DependencyInjection
             var temp = new Options();
             options.Invoke(temp);
 
-
             services.AddDbContext<ApplicationDbContext>(opt => opt.UseSqlServer(temp.ApplicationDbConnectionString));
             services.AddDbContext<IdentityDbContext>(opt => opt.UseSqlServer(temp.IdentityDbConnectionString));
 
