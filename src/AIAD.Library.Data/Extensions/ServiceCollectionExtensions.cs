@@ -16,12 +16,13 @@ namespace Microsoft.Extensions.DependencyInjection
             var temp = new Options();
             options.Invoke(temp);
 
+
             services.AddDbContext<ApplicationDbContext>(opt => opt.UseSqlServer(temp.ApplicationDbConnectionString));
             services.AddDbContext<IdentityDbContext>(opt => opt.UseSqlServer(temp.IdentityDbConnectionString));
 
             services.AddScoped<IApplicationUserRepository, ApplicationUserRepository>();
-            services.AddScoped<IIdeaRepository, IdeaRepository>();
             services.AddScoped<ICommentRepository, CommentRepository>();
+            services.AddScoped<IIdeaRepository, IdeaRepository>();
         }
 
         public class Options

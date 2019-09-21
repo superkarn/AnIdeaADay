@@ -8,10 +8,10 @@ namespace Microsoft.Extensions.DependencyInjection
     {
         public static void AddServicesProjectDependencies(this IServiceCollection services)
         {
-            services.AddScoped<IIdeaService, IdeaService>();
             services.AddScoped<ICommentService, CommentService>();
-            services.AddScoped<ILookUpService, LookUpService>();
+            services.AddScoped<IIdeaService, IdeaService>();
             services.AddScoped<IJwtService, JwtService>();
+            services.AddScoped<ILookUpService, LookUpService>();
         }
     }
 }
