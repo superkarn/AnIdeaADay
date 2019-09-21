@@ -1,6 +1,4 @@
 ﻿using AIAD.Library.Global;
-using AIAD.Library.Services;
-using AIAD.Library.Services.Interfaces;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -39,9 +37,11 @@ namespace AIAD.Api
             });
 
             #region JWT
-            services.Configure<JwtAppSettings>(Configuration.GetSection("Jwt"));
-            var jwtAppSettings = services.BuildServiceProvider().GetRequiredService<JwtAppSettings>();
-            services.AddScoped<IJwtService, JwtService>();
+            JwtAppSettings jwtAppSettings = new JwtAppSettings();
+            var jwtAppSettingsSection = Configuration.GetSection("Jwt");
+            jwtAppSettingsSection.Bind(jwtAppSettings);
+
+            services.Configure<JwtAppSettings>(jwtAppSettingsSection);
 
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                 .AddJwtBearer(options =>
