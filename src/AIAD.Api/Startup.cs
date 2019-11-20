@@ -97,17 +97,16 @@ namespace AIAD.Api
             // (for example, before the call to UseMvc for MVC/Razor Pages Middleware).
             app.UseCors("CorsPolicy");
 
+            // Authentication must come next
+            app.UseAuthentication();
+            app.UseHttpsRedirection();
             app.UseSwagger();
             app.UseSwaggerUI(options =>
             {
                 options.SwaggerEndpoint("/swagger/v1/swagger.json", "My API v1");
             });
 
-            app.UseHttpsRedirection();
-
             app.UseRouting();
-
-            app.UseAuthentication();
 
             app.UseAuthorization();
 
