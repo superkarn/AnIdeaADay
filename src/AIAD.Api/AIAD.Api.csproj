@@ -6,8 +6,7 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="3.0.0" />
-    <PackageReference Include="Microsoft.Extensions.Hosting" Version="3.0.1" />
-    <PackageReference Include="Swashbuckle.AspNetCore" Version="4.0.1" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="5.0.0-rc4" />
   </ItemGroup>
 
   <ItemGroup>
@@ -15,6 +14,10 @@
     <ProjectReference Include="..\AIAD.Library.Global\AIAD.Library.Global.csproj" />
     <ProjectReference Include="..\AIAD.Library.Models\AIAD.Library.Models.csproj" />
     <ProjectReference Include="..\AIAD.Library.Services\AIAD.Library.Services.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Controllers\" />
   </ItemGroup>
 
 </Project>
