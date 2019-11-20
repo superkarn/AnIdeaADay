@@ -70,7 +70,6 @@ namespace AIAD.Api
                         .AllowAnyOrigin() // TODO replace this with WithOrigins()
                         .AllowAnyMethod()
                         .AllowAnyHeader()
-                        //.AllowCredentials() // TODO uncomment this when authentication is ready
                         .Build());
             });
             #endregion
@@ -107,6 +106,8 @@ namespace AIAD.Api
             app.UseHttpsRedirection();
 
             app.UseRouting();
+
+            app.UseAuthentication();
 
             app.UseAuthorization();
 

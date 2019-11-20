@@ -21,7 +21,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{ Token: \"{{apiToken}}\" }"
+							"raw": "{ \"Token\": \"{{apiToken}}\" }"
 						},
 						"url": {
 							"raw": "https://{{host}}:{{port}}/api/jwt/authenticate",
