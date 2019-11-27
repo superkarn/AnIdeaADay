@@ -2,6 +2,7 @@
 using AIAD.Library.Services.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System;
 
 namespace AIAD.Api.Controllers
 {
@@ -17,6 +18,7 @@ namespace AIAD.Api.Controllers
             this.jwtService = authenticationService;
         }
 
+        [Obsolete("Use Auth0 to get JWT token instead.")]
         // POST api/jwt/authenticate
         [AllowAnonymous]
         [HttpPost("authenticate")]
