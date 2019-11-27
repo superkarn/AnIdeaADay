@@ -30,6 +30,7 @@ namespace AIAD.Api.Controllers
             return this.ideaService.GetByCreatorUsername(this.Context, username).ToList();
         }
 
+        [Authorize("read:ideas")]
         [HttpGet]
         [Route("api/users/{username}/ideas/{id}")]
         public ActionResult<Idea> GetById(string username, int id)
@@ -39,6 +40,7 @@ namespace AIAD.Api.Controllers
             return this.ideaService.GetById(Context, id);
         }
 
+        [Authorize("add:ideas")]
         [HttpPost]
         [Route("api/users/{username}/ideas")]
         public ActionResult Post(string username, [FromBody] Idea value)
@@ -58,6 +60,7 @@ namespace AIAD.Api.Controllers
             }
         }
 
+        [Authorize("update:ideas")]
         [HttpPut]
         [Route("api/users/{username}/ideas/{id}")]
         public ActionResult Put(string username, int id, [FromBody] Idea value)
@@ -83,6 +86,7 @@ namespace AIAD.Api.Controllers
             return Ok();
         }
 
+        [Authorize("delete:ideas")]
         [HttpDelete]
         [Route("api/users/{username}/ideas/{id}")]
         public ActionResult Delete(string username, int id)

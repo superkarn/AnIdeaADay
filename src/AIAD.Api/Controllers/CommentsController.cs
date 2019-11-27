@@ -21,6 +21,7 @@ namespace AIAD.Api.Controllers
         }
 
         // Get by commentId
+        [Authorize("read:comments")]
         [HttpGet]
         [Route("api/comments/{id}")]
         public ActionResult<Comment> Get(int id)
@@ -31,6 +32,7 @@ namespace AIAD.Api.Controllers
         }
 
         // Get by ideaId
+        [Authorize("read:comments")]
         [HttpGet]
         [Route("api/ideas/{ideaId}/comments")]
         public ActionResult<IEnumerable<Comment>> GetByIdeaId(int ideaId)
@@ -41,6 +43,7 @@ namespace AIAD.Api.Controllers
         }
 
         // Get by username
+        [Authorize("read:comments")]
         [HttpGet]
         [Route("api/users/{username}/comments")]
         public ActionResult<IEnumerable<Comment>> GetByUsername(string username)
@@ -51,6 +54,7 @@ namespace AIAD.Api.Controllers
         }
 
         // Create a comment to an idea
+        [Authorize("add:comments")]
         [HttpPost]
         [Route("api/comments")]
         public ActionResult Post(int ideaId, [FromBody] Comment value)
@@ -76,6 +80,7 @@ namespace AIAD.Api.Controllers
         //AIAD.Api.Controllers.CommentsController.Put(AIAD.Api)
         //
         // PUT api/users/{username}/ideas/5
+        [Authorize("update:comments")]
         [HttpPut]
         [Route("api/comments/{id}")]
         public ActionResult Put(int id, [FromBody] Comment value)
@@ -98,6 +103,7 @@ namespace AIAD.Api.Controllers
         }
 
         // DELETE api/users/{username}/ideas/5
+        [Authorize("delete:comments")]
         [HttpDelete]
         [Route("api/comments/{id}")]
         public ActionResult Delete(string username, int id)

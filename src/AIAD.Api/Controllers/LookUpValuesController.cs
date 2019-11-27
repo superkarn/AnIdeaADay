@@ -20,6 +20,7 @@ namespace AIAD.Api.Controllers
         }
 
         // GET api/lookUpValues
+        [Authorize("read:lookUpValues")]
         [HttpGet]
         public ActionResult<IDictionary<string, IEnumerable<BaseLookUpModel>>> Get()
         {

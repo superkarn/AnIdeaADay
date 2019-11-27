@@ -21,7 +21,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n\t\"client_id\":\"{{auth0.clientId}}\",\n\t\"client_secret\":\"{{auth0.clientSecret}}\",\n\t\"audience\":\"{{auth0.apiIdentifier}}\",\n\t\"grant_type\":\"client_credentials\"\n}"
+							"raw": "{\n    \"client_id\": \"{{auth0.clientId}}\",\n    \"client_secret\": \"{{auth0.clientSecret}}\",\n    \"audience\": \"{{auth0.apiIdentifier}}\",\n    \"grant_type\": \"client_credentials\"\n}"
 						},
 						"url": {
 							"raw": "https://{{auth0.domain}}/oauth/token",

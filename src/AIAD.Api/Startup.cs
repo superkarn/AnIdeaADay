@@ -39,7 +39,6 @@ namespace AIAD.Api
             Application.Web.BaseUrl = this.Configuration.GetSection("Applications")["Web:BaseUrl"];
             
             var auth0Settings = this.Configuration.GetSection("Auth0").Get<Auth0Settings>();
-            //services.AddSingleton<Auth0Settings>(auth0Settings);
 
             services.AddControllers();
 
@@ -67,17 +66,6 @@ namespace AIAD.Api
                     {
                         NameClaimType = ClaimTypes.NameIdentifier
                     };
-                    //options.TokenValidationParameters = new TokenValidationParameters
-                    //{
-                    //    ValidateIssuer = true,
-                    //    ValidateAudience = true,
-                    //    ValidateLifetime = true,
-                    //    ValidateIssuerSigningKey = true,
-                    //    ValidIssuer = jwtAppSettings.Issuer,
-                    //    ValidAudience = jwtAppSettings.Audience,
-                    //    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtAppSettings.Key)),
-                    //    ClockSkew = TimeSpan.Zero
-                    //};
                 });
 
             // Needed so JWT can work
@@ -92,13 +80,22 @@ namespace AIAD.Api
             });
             #endregion
 
-            #region Auth0
+            // Auth0
+            services.AddSingleton<IAuthorizationHandler, HasScopeHandler>();
             services.AddAuthorization(options =>
             {
+                options.AddPolicy("add:comments", policy => policy.Requirements.Add(new HasScopeRequirement("add:comments", $"https://{auth0Settings.Domain}/")));
+                options.AddPolicy("read:comments", policy => policy.Requirements.Add(new HasScopeRequirement("read:comments", $"https://{auth0Settings.Domain}/")));
+                options.AddPolicy("delete:comments", policy => policy.Requirements.Add(new HasScopeRequirement("delete:comments", $"https://{auth0Settings.Domain}/")));
+                options.AddPolicy("update:comments", policy => policy.Requirements.Add(new HasScopeRequirement("update:comments", $"https://{auth0Settings.Domain}/")));
+
+                options.AddPolicy("add:ideas", policy => policy.Requirements.Add(new HasScopeRequirement("add:ideas", $"https://{auth0Settings.Domain}/")));
                 options.AddPolicy("read:ideas", policy => policy.Requirements.Add(new HasScopeRequirement("read:ideas", $"https://{auth0Settings.Domain}/")));
+                options.AddPolicy("delete:ideas", policy => policy.Requirements.Add(new HasScopeRequirement("delete:ideas", $"https://{auth0Settings.Domain}/")));
+                options.AddPolicy("update:ideas", policy => policy.Requirements.Add(new HasScopeRequirement("update:ideas", $"https://{auth0Settings.Domain}/")));
+
+                options.AddPolicy("read:lookUpValues", policy => policy.Requirements.Add(new HasScopeRequirement("read:lookUpValues", $"https://{auth0Settings.Domain}/")));
             });
-            services.AddSingleton<IAuthorizationHandler, HasScopeHandler>();
-            #endregion
 
             services.AddDataProjectDependencies(
                 options =>
