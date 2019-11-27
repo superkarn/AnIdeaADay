@@ -8,6 +8,7 @@ using System;
 using System.Linq;
 using System.Security;
 using System.Data.SqlClient;
+using Microsoft.Data.SqlClient;
 
 namespace AIAD.Library.Services
 {
