@@ -1,10 +1,13 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
+using AIAD.Api.Authorization;
 using AIAD.Library.Global;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -34,6 +37,9 @@ namespace AIAD.Api
             Application.Api.BaseUrl = this.Configuration.GetSection("Applications")["Api:BaseUrl"];
             Application.Authentication.BaseUrl = this.Configuration.GetSection("Applications")["Authentication:BaseUrl"];
             Application.Web.BaseUrl = this.Configuration.GetSection("Applications")["Web:BaseUrl"];
+            
+            var auth0Settings = this.Configuration.GetSection("Auth0").Get<Auth0Settings>();
+            //services.AddSingleton<Auth0Settings>(auth0Settings);
 
             services.AddControllers();
 
@@ -46,20 +52,32 @@ namespace AIAD.Api
             var jwtAppSettings = this.Configuration.GetSection("Jwt").Get<JwtAppSettings>();
             services.AddSingleton<JwtAppSettings>(jwtAppSettings);
 
-            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+            services.AddAuthentication(options =>
+                {
+                    options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                    options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+                })
                 .AddJwtBearer(options =>
                 {
+                    options.RequireHttpsMetadata = false;
+
+                    options.Authority = $"https://{auth0Settings.Domain}/";
+                    options.Audience = auth0Settings.ApiIdentifier;
                     options.TokenValidationParameters = new TokenValidationParameters
                     {
-                        ValidateIssuer = true,
-                        ValidateAudience = true,
-                        ValidateLifetime = true,
-                        ValidateIssuerSigningKey = true,
-                        ValidIssuer = jwtAppSettings.Issuer,
-                        ValidAudience = jwtAppSettings.Audience,
-                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtAppSettings.Key)),
-                        ClockSkew = TimeSpan.Zero
+                        NameClaimType = ClaimTypes.NameIdentifier
                     };
+                    //options.TokenValidationParameters = new TokenValidationParameters
+                    //{
+                    //    ValidateIssuer = true,
+                    //    ValidateAudience = true,
+                    //    ValidateLifetime = true,
+                    //    ValidateIssuerSigningKey = true,
+                    //    ValidIssuer = jwtAppSettings.Issuer,
+                    //    ValidAudience = jwtAppSettings.Audience,
+                    //    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtAppSettings.Key)),
+                    //    ClockSkew = TimeSpan.Zero
+                    //};
                 });
 
             // Needed so JWT can work
@@ -72,6 +90,14 @@ namespace AIAD.Api
                         .AllowAnyHeader()
                         .Build());
             });
+            #endregion
+
+            #region Auth0
+            services.AddAuthorization(options =>
+            {
+                options.AddPolicy("read:ideas", policy => policy.Requirements.Add(new HasScopeRequirement("read:ideas", $"https://{auth0Settings.Domain}/")));
+            });
+            services.AddSingleton<IAuthorizationHandler, HasScopeHandler>();
             #endregion
 
             services.AddDataProjectDependencies(

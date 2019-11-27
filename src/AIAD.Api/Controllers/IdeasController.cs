@@ -20,6 +20,7 @@ namespace AIAD.Api.Controllers
             this.ideaService = ideaService;
         }
 
+        [Authorize("read:ideas")]
         [HttpGet]
         [Route("api/users/{username}/ideas")]
         public ActionResult<IEnumerable<Idea>> Get(string username)

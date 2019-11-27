@@ -19,8 +19,10 @@ namespace AIAD.Api.Controllers
             {
                 CurrentUser = new ApplicationUser()
                 {
-                    Id = identity.Claims.FirstOrDefault(x => x.Type == "userId").Value,
-                    UserName = identity.Claims.FirstOrDefault(x => x.Type == "username").Value
+                    // TODO figure out a way to get this data
+
+                    //Id = identity.Claims.FirstOrDefault(x => x.Type == "userId").Value,
+                    //UserName = identity.Claims.FirstOrDefault(x => x.Type == "username").Value
                 }
             };
         }
