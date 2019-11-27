@@ -24,7 +24,7 @@
 							"raw": "{ \"Token\": \"{{apiToken}}\" }"
 						},
 						"url": {
-							"raw": "https://{{host}}:{{port}}/api/jwt/authenticate",
+							"raw": "https://{{host}}:{{port}}/api/Jwt/authenticate",
 							"protocol": "https",
 							"host": [
 								"{{host}}"
@@ -32,7 +32,7 @@
 							"port": "{{port}}",
 							"path": [
 								"api",
-								"jwt",
+								"Jwt",
 								"authenticate"
 							]
 						}
@@ -213,7 +213,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{ CreatorId: \"{{idea.creatorId}}\", Name: \"New idea\"}"
+							"raw": "{ \"CreatorId\": \"{{idea.creatorId}}\", \"Name\": \"New idea\"}"
 						},
 						"url": {
 							"raw": "https://{{host}}:{{port}}/api/users/{{user.username}}/ideas",
@@ -255,7 +255,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{ Id: {{idea.id}}, Name: \"UPDATED\", PrivacyId: 1, description: \"UPDATED\", comment: \"MY COMMENT\" }"
+							"raw": "{ \"Id\": {{idea.id}}, \"Name\": \"UPDATED\", \"PrivacyId\": 2, \"description\": \"UPDATED\", \"comment\": \"MY COMMENT\" }"
 						},
 						"url": {
 							"raw": "https://{{host}}:{{port}}/api/users/{{user.username}}/ideas/{{idea.id}}",
@@ -433,7 +433,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{ CreatorId: \"{{idea.creatorId}}\", IdeaId: \"2\", Content: \"My second comment\" }"
+							"raw": "{ \"CreatorId\": \"{{idea.creatorId}}\", \"IdeaId\": 6, \"Content\": \"My second comment\" }"
 						},
 						"url": {
 							"raw": "https://{{host}}:{{port}}/api/comments",
@@ -473,7 +473,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{ Content: \"Updated comment!!\" }"
+							"raw": "{ \"Content\": \"Updated comment!!\" }"
 						},
 						"url": {
 							"raw": "https://{{host}}:{{port}}/api/comments/{{comment.id}}",

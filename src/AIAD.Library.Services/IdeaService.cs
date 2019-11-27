@@ -139,7 +139,7 @@ namespace AIAD.Library.Services
 
             // TODO make this work with PATCH
             existingItem.Name = item.Name;
-            existingItem.Privacy = item.Privacy;
+            existingItem.PrivacyId = item.PrivacyId;
             existingItem.Description = item.Description;
             existingItem.LastModifiedDate = DateTime.UtcNow;
 
